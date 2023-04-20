@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 from tkinter import filedialog
 import os
 import fnmatch
@@ -13,26 +14,26 @@ class FileSearchApp(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        self.dir_label = tk.Label(self, text="Select directory:")
-        self.dir_label.pack()
+        self.dir_label = ttk.Label(self, text="Select directory:")
+        self.dir_label.pack(pady=10)
 
-        self.dir_button = tk.Button(self, text="Choose directory", command=self.choose_directory)
+        self.dir_button = ttk.Button(self, text="Choose directory", command=self.choose_directory)
         self.dir_button.pack()
 
-        self.pattern_label = tk.Label(self, text="Enter glob pattern:")
-        self.pattern_label.pack()
+        self.pattern_label = ttk.Label(self, text="Enter glob pattern:")
+        self.pattern_label.pack(pady=10)
 
-        self.pattern_entry = tk.Entry(self)
+        self.pattern_entry = ttk.Entry(self)
         self.pattern_entry.pack()
 
-        self.search_button = tk.Button(self, text="Search", command=self.search_files)
-        self.search_button.pack()
+        self.search_button = ttk.Button(self, text="Search", command=self.search_files)
+        self.search_button.pack(pady=10)
 
-        self.merge_button = tk.Button(self, text="Merge", command=self.merge_files)
-        self.merge_button.pack()
+        self.merge_button = ttk.Button(self, text="Merge", command=self.merge_files)
+        self.merge_button.pack(pady=10)
 
-        self.results_label = tk.Label(self, text="Results:")
-        self.results_label.pack()
+        self.results_label = ttk.Label(self, text="Results:")
+        self.results_label.pack(pady=10)
 
         self.results_text = tk.Text(self, height=10)
         self.results_text.pack()
