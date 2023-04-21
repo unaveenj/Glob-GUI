@@ -14,29 +14,57 @@ class FileSearchApp(tk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        self.dir_label = ttk.Label(self, text="Select directory:")
-        self.dir_label.pack(pady=10)
+        # Create style
+        style = ttk.Style()
+        style.theme_use("clam")
 
-        self.dir_button = ttk.Button(self, text="Choose directory", command=self.choose_directory)
-        self.dir_button.pack()
+        # Create directory selection frame
+        dir_frame = ttk.Frame(self)
+        dir_frame.pack(fill=tk.X, padx=20, pady=10)
 
-        self.pattern_label = ttk.Label(self, text="Enter glob pattern:")
-        self.pattern_label.pack(pady=10)
+        self.dir_label = ttk.Label(dir_frame, text="Select directory:")
+        self.dir_label.pack(side=tk.LEFT, padx=5)
 
-        self.pattern_entry = ttk.Entry(self)
-        self.pattern_entry.pack()
+        self.dir_entry = ttk.Entry(dir_frame)
+        self.dir_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
 
-        self.search_button = ttk.Button(self, text="Search", command=self.search_files)
-        self.search_button.pack(pady=10)
+        self.dir_button = ttk.Button(dir_frame, text="Choose directory", command=self.choose_directory)
+        self.dir_button.pack(side=tk.LEFT, padx=5)
 
-        self.merge_button = ttk.Button(self, text="Merge", command=self.merge_files)
-        self.merge_button.pack(pady=10)
+        # Create pattern entry frame
+        pattern_frame = ttk.Frame(self)
+        pattern_frame.pack(fill=tk.X, padx=20, pady=10)
 
-        self.results_label = ttk.Label(self, text="Results:")
-        self.results_label.pack(pady=10)
+        self.pattern_label = ttk.Label(pattern_frame, text="Enter glob pattern:")
+        self.pattern_label.pack(side=tk.LEFT, padx=5)
 
-        self.results_text = tk.Text(self, height=10)
-        self.results_text.pack()
+        self.pattern_entry = ttk.Entry(pattern_frame)
+        self.pattern_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
+
+        # Create search button frame
+        search_frame = ttk.Frame(self)
+        search_frame.pack(fill=tk.X, padx=20, pady=10)
+
+        self.search_button = ttk.Button(search_frame, text="Search", command=self.search_files)
+        self.search_button.pack(side=tk.LEFT, padx=5)
+
+        self.merge_button = ttk.Button(search_frame, text="Merge", command=self.merge_files)
+        self.merge_button.pack(side=tk.LEFT, padx=5)
+
+        # Create results frame
+        results_frame = ttk.Frame(self)
+        results_frame.pack(fill=tk.BOTH, padx=20, pady=10, expand=True)
+
+        self.results_label = ttk.Label(results_frame, text="Results:")
+        self.results_label.pack(side=tk.TOP, anchor=tk.W, pady=5)
+
+        self.results_text = tk.Text(results_frame, height=10)
+        self.results_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        results_scrollbar = ttk.Scrollbar(results_frame, command=self.results_text.yview)
+        results_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        self.results_text.config(yscrollcommand=results_scrollbar.set)
 
         self.results_text.bind("<Double-Button-1>", self.open_directory)
 
